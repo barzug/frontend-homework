@@ -37,4 +37,25 @@ QUnit.module('Тестируем функцию roman', function () {
 		assert.strictEqual(roman('1990'), 'MCMXC');
 		assert.strictEqual(roman('2017'), 'MMXVII');
 	});
+
+    QUnit.test('roman правильно работает со строкой, содержащей пробелы перед числом и после него', function (assert) {
+        assert.strictEqual(roman(' 1904'), 'MCMIV');
+        assert.strictEqual(roman('  MCMXC '), 1990);
+        assert.strictEqual(roman(' L'), 50);
+    });
+
+    QUnit.test('roman обрабатывает пустую строку как 0', function (assert) {
+        assert.strictEqual(roman('   '), 0);
+        assert.strictEqual(roman(''), 0);
+    });
+
+    QUnit.test('roman возвращает null при некорректном вводе', function (assert) {
+        assert.strictEqual(roman('AA'), null);
+        assert.strictEqual(roman('MMXVIIM'), null);
+        assert.strictEqual(roman('...'), null);
+        assert.strictEqual(roman(null), null);
+        assert.strictEqual(roman(undefined), null);
+        assert.strictEqual(roman(NaN), null);
+    });
+
 });

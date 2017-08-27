@@ -5,7 +5,7 @@ const roman = function (str) {
         return toRomanNumeral(str);
     }
 
-    if (/^[MDCLXVI]*$/i.test(str)){
+    if (/^[MDCLXVI ]*$/i.test(str)) {
         return fromRomanNumeral(str)
     }
 
@@ -26,7 +26,8 @@ function toRomanNumeral(num) {
 }
 
 function fromRomanNumeral(str) {
-    str = str.toUpperCase();
+    str = str.trim().toUpperCase();
+    console.log(str);
 
     let result = 0;
     for (let i in lookup) {
@@ -36,9 +37,12 @@ function fromRomanNumeral(str) {
         }
     }
 
+    if (str.length !== 0) {
+        return null;
+    }
+
     return result;
 }
-
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
