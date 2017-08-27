@@ -5,7 +5,7 @@ const roman = str => {
         return toRomanNumeral(str);
     }
 
-    if (/^[MDCLXVI ]*$/i.test(str)) {
+    if (/^(\s*)(M{0,3})(D?C{0,3}|C[DM])(L?X{0,3}|X[LC])(V?I{0,4}|I[VX])(\s*)$/i.test(str)) {
         return fromRomanNumeral(str)
     }
 
@@ -16,37 +16,27 @@ const roman = str => {
 const toRomanNumeral = num => {
     let result = '';
 
-    for (let i in lookup) {
+    Object.keys(lookup).forEach(i => {
         while (num >= lookup[i]) {
             result += i;
             num -= lookup[i];
         }
-    }
+    });
+
     return result;
 };
 
 const fromRomanNumeral = str => {
-    str = str.trim().toUpperCase();
-    console.log(str);
-
     let result = 0;
-    for (let i in lookup) {
-        while (str.indexOf(i) === 0) {
-            result += lookup[i];
-            str = str.replace(i, '');
-        }
-    }
-
-    if (str.length !== 0) {
-        return null;
-    }
+    str.trim().toUpperCase().split('').reduce((prev, current) => {
+        result += lookup[prev] < lookup[current] ? lookup[current] - 2 * lookup[prev] : lookup[current];
+        return current;
+    }, "M");
 
     return result;
 };
 
-const isNumeric = n => {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
+const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n);
 
 const lookup = {
     M: 1000,
