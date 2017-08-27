@@ -1,6 +1,6 @@
 'use strict';
 
-const roman = function (str) {
+const roman = str => {
     if (isNumeric(str)) {
         return toRomanNumeral(str);
     }
@@ -13,7 +13,7 @@ const roman = function (str) {
 };
 
 
-function toRomanNumeral(num) {
+const toRomanNumeral = num => {
     let result = '';
 
     for (let i in lookup) {
@@ -23,9 +23,9 @@ function toRomanNumeral(num) {
         }
     }
     return result;
-}
+};
 
-function fromRomanNumeral(str) {
+const fromRomanNumeral = str => {
     str = str.trim().toUpperCase();
     console.log(str);
 
@@ -42,11 +42,11 @@ function fromRomanNumeral(str) {
     }
 
     return result;
-}
+};
 
-function isNumeric(n) {
+const isNumeric = n => {
     return !isNaN(parseFloat(n)) && isFinite(n);
-}
+};
 
 const lookup = {
     M: 1000,

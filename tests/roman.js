@@ -53,6 +53,7 @@ QUnit.module('Тестируем функцию roman', function () {
         assert.strictEqual(roman('AA'), null);
         assert.strictEqual(roman('MMXVIIM'), null);
         assert.strictEqual(roman('...'), null);
+        assert.strictEqual(roman([1,2,3]), null);
         assert.strictEqual(roman(null), null);
         assert.strictEqual(roman(undefined), null);
         assert.strictEqual(roman(NaN), null);
