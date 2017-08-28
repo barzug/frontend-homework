@@ -5,7 +5,7 @@ const roman = str => {
         return toRomanNumeral(str);
     }
 
-    if (/^(\s*)(M{0,3})(D?C{0,3}|C[DM])(L?X{0,3}|X[LC])(V?I{0,4}|I[VX])(\s*)$/i.test(str)) {
+    if (isRoman(str)) {
         return fromRomanNumeral(str)
     }
 
@@ -28,6 +28,7 @@ const toRomanNumeral = num => {
 
 const fromRomanNumeral = str => {
     let result = 0;
+
     str.trim().toUpperCase().split('').reduce((prev, current) => {
         result += lookup[prev] < lookup[current] ? lookup[current] - 2 * lookup[prev] : lookup[current];
         return current;
@@ -37,6 +38,8 @@ const fromRomanNumeral = str => {
 };
 
 const isNumeric = n => !isNaN(parseFloat(n)) && isFinite(n);
+
+const isRoman = str => /^(\s*)(M{0,3})(D?C{0,3}|C[DM])(L?X{0,3}|X[LC])(V?I{0,4}|I[VX])(\s*)$/i.test(str);
 
 const lookup = {
     M: 1000,
